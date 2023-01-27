@@ -9,6 +9,6 @@ const nthChar = (str,n) =>{
 
     // 2nd way
     // return str.charAt(n)
- 
+
 }
 console.log(nthChar('abc',2))
