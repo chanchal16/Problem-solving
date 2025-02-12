@@ -10,16 +10,32 @@ For i = 3, res[i] = 10 * 3 * 5 * 2 is 300.
 For i = 4, res[i] = 10 * 3 * 5 * 6 is 900. */
 
 const getProductOfArray = (arr) => {
-  // 1st APPROACH USING NESTED LOOPS
   let n = arr.length;
   let res = new Array(n).fill(1); //fill res arr with 1 of length n --> res=[1,1,1,...]
+  //let result = []
+  // 1st APPROACH USING NESTED LOOPS
+  //   for (let i = 0; i < n; i++) {
+  //     // let product = 1;
+  //     for (let j = 0; j < n; j++) {
+  //       if (i !== j) {
+  //         //check index
+  //         res[i] = res[i] * arr[j]; //1*3 = 3 res[i]=3,arr[j]=5  --> 3*5=15=res[i]
+  //         // product*= arr[j];
+  //       }
+  //     }
+  //     // result.push(product)
+  //   }
+
+  //2nd APPROACH USING PREFIX/SUFFIX PRODUCT
+  let prefix = 1;
+  let suffix = 1;
   for (let i = 0; i < n; i++) {
-    for (let j = 0; j < n; j++) {
-      if (i !== j) {
-        //check index
-        res[i] = res[i] * arr[j]; //1*3 = 3 res[i]=3,arr[j]=5  --> 3*5=15=res[i]
-      }
-    }
+    res[i] = prefix; //store prefix in res as it will hold prod of elements
+    prefix *= arr[i]; //update prefix
+  }
+  for (let i = n - 1; i >= 0; i--) {
+    res[i] *= suffix; //multiply bcz res contains prefix product
+    suffix *= arr[i]; //update suffix
   }
   return res;
 };
