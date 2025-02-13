@@ -25,22 +25,47 @@ const findMajorityElement = (arr) => {
   //   }
 
   //2ND APPROACH - USING SORTING
-  if (n === 1) return arr[0];
-  let count = 1;
-  arr.sort((a, b) => a - b);
-  for (let i = 1; i < n; i++) {
-    if (arr[i] === arr[i - 1]) {
+  //   if (n === 1) return arr[0];
+  //   let count = 1;
+  //   arr.sort((a, b) => a - b);
+  //   for (let i = 1; i < n; i++) {
+  //     if (arr[i] === arr[i - 1]) {
+  //       count++;
+  //     } else {
+  //       if (count > Math.floor(x)) {
+  //         return arr[i];
+  //       }
+  //       count = 1;
+  //     }
+  //   }
+  //   // Check the last element
+  //   if (count > Math.floor(x)) {
+  //     return arr[n - 1];
+  //   }
+
+  //3RD APPROACH - Moore’s Voting Algorithm (OPTIMAL SOLUTION)
+  let count = 0;
+  let element;
+  for (let num of arr) {
+    if (count === 0) {
+      element = num;
+      count = 1;
+    } else if (num === element) {
       count++;
     } else {
-      if (count > Math.floor(x)) {
-        return arr[i];
-      }
-      count = 1;
+      count--;
     }
   }
-  // Check the last element
-  if (count > Math.floor(x)) {
-    return arr[n - 1];
+  let count1 = 0;
+  // Traverse the array again to count the occurrences of the element
+  for (let ele of arr) {
+    if (ele === element) {
+      count1++;
+    }
+  }
+  //If count is greater than n / 2, return the element
+  if (count1 > Math.floor(x)) {
+    return element;
   }
   // If no majority element found, return -1
   return -1;
